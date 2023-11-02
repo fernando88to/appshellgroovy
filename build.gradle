@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    //
+    id 'groovy'
+
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+    implementation 'io.quarkiverse.groovy:quarkus-groovy-jaxb:3.5.0'
+    implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'io.quarkiverse.groovy:quarkus-groovy:3.5.0'
+    implementation 'io.quarkus:quarkus-arc'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}
+
+group 'com.fernando'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+
+/**
+ * Essa configuração é útil em um projeto onde você deseja que o código Groovy e Java seja compilado
+ * juntos, e o código Java pode depender do código Groovy. Ao fazer isso, o Gradle usará o compilador
+ * Groovy para compilar ambos os tipos de arquivos, permitindo que as dependências entre eles sejam
+ * resolvidas corretamente.
+ *  Essencialmente, esta configuração permite que o código Groovy e Java coexistam no mesmo
+ *  diretório e sejam compilados juntos, garantindo que todas as dependências sejam satisfeitas.
+ */
+sourceSets {
+    main {
+        java { srcDirs = [] }
+        groovy { srcDirs += ['src/main/java'] }
+    }
+}
+
+
