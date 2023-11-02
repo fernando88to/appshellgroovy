@@ -1,9 +1,11 @@
 package com.fernando
 
 import groovy.transform.CompileStatic
+import jakarta.enterprise.context.ApplicationScoped
 
 @SuppressWarnings('ClassJavadoc')
 @CompileStatic
+@ApplicationScoped
 class ShellScript {
 
     @SuppressWarnings('GrMethodMayBeStatic')

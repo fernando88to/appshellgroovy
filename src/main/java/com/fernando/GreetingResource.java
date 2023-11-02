@@ -15,12 +15,13 @@ public class GreetingResource {
 
     @Inject
     Logger log;
+    @Inject
+    ShellScript shellScript;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("/calculanota")
-    public String calculaNota() {
-        ShellScript shellScript = new ShellScript();
+    @Path("/calcularmedia")
+    public String calcularMedia() {
         BigDecimal resultado = shellScript.calcularMedia(new BigDecimal("5.50"), new BigDecimal("8.0"));
         log.info("Resultado = " + resultado);
         return "Resultado = " + resultado;
@@ -31,8 +32,7 @@ public class GreetingResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/estaaprovado")
     public String estaAprovado() {
-        ShellScript shellScript = new ShellScript();
-        Boolean resultado = shellScript.estaAprovado(new BigDecimal(0.5));
+        Boolean resultado = shellScript.estaAprovado(new BigDecimal("7"));
         log.info("Aprovado = " + resultado);
         return "Aprovado = " + resultado;
     }
